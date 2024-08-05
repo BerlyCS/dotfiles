@@ -22,25 +22,26 @@ set expandtab
 set smarttab
 set ma
 set noshowmode
+set updatetime=1000
 
 " -----------------------------------------
 " Plugins
 "
-
 call plug#begin()
 " Themes
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 " Plug 'ellisonleao/gruvbox.nvim'
 Plug 'sainnhe/gruvbox-material'
-Plug 'EdenEast/nightfox.nvim' " nightFOx
-" Plug 'folke/tokyonight.nvim'
-Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
-Plug 'tiagovla/tokyodark.nvim' 
-Plug 'Shatur/neovim-ayu'
+" Plug 'EdenEast/nightfox.nvim' " nightFOx
+Plug 'folke/tokyonight.nvim'
+" Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
+" Plug 'tiagovla/tokyodark.nvim' 
+" Plug 'Shatur/neovim-ayu'
 Plug 'Mofiqul/vscode.nvim'
+" Plug 'rainglow/vim' " 250+ themes
 
 Plug 'easymotion/vim-easymotion'
-Plug 'preservim/nerdtree'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'vim-airline/vim-airline' " Status bar
@@ -68,7 +69,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'romgrk/barbar.nvim'
 Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
 
-" Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'HiPhish/rainbow-delimiters.nvim'
 
 
@@ -82,10 +83,13 @@ endif
 " Plug 'lervag/vimtex'
 " Plug 'lervag/vimtex', { 'tag': 'v2.15' }
 
+" use it with gaip see :h
+Plug 'junegunn/vim-easy-align'
+
 call plug#end()
 
 
-" so ~/.config/nvim/plug-config/treesitter.lua
+so ~/.config/nvim/plug-config/treesitter.lua
 " so ~/.config/nvim/plug-config/nightfox.lua
 
 " colorscheme gruvbox-material
@@ -141,14 +145,32 @@ nnoremap <A-1> :ToggleTerm direction=horizontal size=10<cr>
 nnoremap <A-2> :ToggleTerm direction=vertical size=40<cr>
 nnoremap <A-3> :ToggleTerm direction=float<cr>
 
-"Compile cpp
-autocmd FileType cpp nnoremap <buffer> <F5> :w<CR>:!make %:r<CR>
-"Compile c
-autocmd FileType c nnoremap <buffer> <F5> :w<CR>:!gcc -o %< %<CR>
+" Custom function to compile and run
+function! CompileAndRun()
+    if &filetype == 'cpp'
+        exec 'w'
+        exec 'ToggleTerm direction=float'
+        call feedkeys(":!g++ % -o %< && ./".expand('%<')."\<CR>")
+    elseif &filetype == 'c'
+        exec 'w'
+        exec 'ToggleTerm direction=float'
+        call feedkeys(":!gcc % -o %< && ./".expand('%<')."\<CR>")
+    endif
+endfunction
+
+" Map F5 to the custom function
+autocmd FileType cpp nnoremap <buffer> <F5> :!make %<<CR>
+autocmd FileType c nnoremap <buffer> <F5> :!make %<<CR>
+
+" Compile and run cpp
+" autocmd FileType cpp nnoremap <buffer> <F5> :w<CR>:!g++ % -o %:r && ToggleTermSendCurrentLine ./%:r<CR>
+
+" Compile and run c
+" autocmd FileType c nnoremap <buffer> <F5> :w<CR>:!gcc % -o %:r && ToggleTermSendCurrentLine ./%:r<CR>
+
 " nnoremap <F5> :w<CR>:make "%<"<CR>
 autocmd FileType tex nnoremap <buffer> <F5> :w<CR>:!pdflatex %<CR>:!xdg-open %<.pdf<CR>
 
-nnoremap <C-€> :ToggleTerm direction=float<CR>node "%<"<CR>
 
 "Quit and Save
 nnoremap <C-q> :q!<CR>
@@ -181,16 +203,62 @@ nnoremap <C-c> <Esc>
 "Git graph
 " nnoremap <Leader>g 
 
-" -----------------------------------------
+" ------------------------------------------------------------------------------
 " Plugins-Config
 
 " Startify
-let g:startify_custom_header =
-          \ 'startify#center(startify#fortune#cowsay())'
+" let g:startify_custom_header = 'startify#center(startify#fortune#cowsay())'
+" let g:startify_custom_header = startify#pad(split(system('figlet nvim'), '\n'))
+"
+let banner = [
+\ '╔─────────────────────────────────────────────────────────────╗',
+\ '│                                                             │',
+\ '│  /$$   /$$                                /$$               │',
+\ '│ | $$$ | $$                               |__/               │',
+\ '│ | $$$$| $$  /$$$$$$   /$$$$$$  /$$    /$$ /$$ /$$$$$$/$$$$  │',
+\ '│ | $$ $$ $$ /$$__  $$ /$$__  $$|  $$  /$$/| $$| $$_  $$_  $$ │',
+\ '│ | $$  $$$$| $$$$$$$$| $$  \ $$ \  $$/$$/ | $$| $$ \ $$ \ $$ │',
+\ '│ | $$\  $$$| $$_____/| $$  | $$  \  $$$/  | $$| $$ | $$ | $$ │',
+\ '│ | $$ \  $$|  $$$$$$$|  $$$$$$/   \  $/   | $$| $$ | $$ | $$ │',
+\ '│ |__/  \__/ \_______/ \______/     \_/    |__/|__/ |__/ |__/ │',
+\ '│                                                             │',
+\ '╚─────────────────────────────────────────────────────────────╝'
+\ ]
+
+" let g:startify_custom_header = startify#center(banner)
+let g:startify_custom_header = 
+      \ startify#center(startify#fortune#cowsay('', '═','║','╔','╗','╝','╚'))
+
+let g:startify_custom_footer = 
+            \ startify#center(banner)
+
+let g:startify_lists = [
+            \ { 'type': 'files',     'header': ['   MRU']            },                 
+            \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+            \ { 'type': 'sessions',  'header': ['   Sessions']       },                 
+            \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+            \ { 'type': 'commands',  'header': ['   Commands']       },
+            \ ]
+
+let g:startify_bookmarks = [
+            \ '~/.config/nvim/init.vim'
+            \ ]
+let g:startify_session_dir = '~/.config/nvim/sessions'
+highlight StartifyBracket ctermfg=240
+highlight StartifyFooter  ctermfg=240
+highlight StartifyHeader  ctermfg=114
+highlight StartifyNumber  ctermfg=215
+highlight StartifyPath    ctermfg=245
+highlight StartifySlash   ctermfg=240
+highlight StartifySpecial ctermfg=240
+
+"----------------------------------------------------------------------------
+
 
 " ToggleTerm
 lua require("toggleterm").setup()
 
+"----------------------------------------------------------------------------
 " Coc
 " inoremap <expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
 
@@ -208,6 +276,7 @@ endif
 let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<s-tab>'
  
+"----------------------------------------------------------------------------
 " air-line
 let g:airline_powerline_fonts = 1
 
@@ -224,11 +293,12 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
+"----------------------------------------------------------------------------
  " Tags rainbow
-"let g:rainbow_active = 1
-"let g:rainbow#max_level = 16
-"let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-"autocmd FileType * RainbowParentheses 
+let g:rainbow_active = 1
+let g:rainbow#max_level = 16
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+autocmd FileType * RainbowParentheses 
 
 
 " " This is necessary for VimTeX to load properly. The "indent" is optional.
@@ -259,3 +329,4 @@ let g:airline_symbols.linenr = ''
 " " Most VimTeX mappings rely on localleader and this can be changed with the
 " " following line. The default is usually fine and is the symbol "\".
 " let maplocalleader = ","
+"----------------------------------------------------------------------------
