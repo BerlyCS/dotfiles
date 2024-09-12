@@ -14,15 +14,15 @@ set showmatch
 set relativenumber
 set autoindent
 set laststatus=4
-set sw=4
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set sw=2
+set tabstop=6
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 set smarttab
 set ma
 set noshowmode
-set updatetime=1000
+set updatetime=2000
 
 " -----------------------------------------
 " Plugins
@@ -33,13 +33,15 @@ call plug#begin()
 " Plug 'ellisonleao/gruvbox.nvim'
 Plug 'sainnhe/gruvbox-material'
 " Plug 'EdenEast/nightfox.nvim' " nightFOx
-Plug 'folke/tokyonight.nvim'
+" Plug 'folke/tokyonight.nvim'
 " Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
 " Plug 'tiagovla/tokyodark.nvim' 
 " Plug 'Shatur/neovim-ayu'
 Plug 'Mofiqul/vscode.nvim'
 " Plug 'rainglow/vim' " 250+ themes
+" Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
+" Utilities
 Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'ryanoasis/vim-devicons' " Developer Icons
@@ -84,10 +86,11 @@ endif
 " Plug 'lervag/vimtex', { 'tag': 'v2.15' }
 
 " use it with gaip see :h
-Plug 'junegunn/vim-easy-align'
+" Plug 'junegunn/vim-easy-align'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
 call plug#end()
-
 
 so ~/.config/nvim/plug-config/treesitter.lua
 " so ~/.config/nvim/plug-config/nightfox.lua
@@ -117,10 +120,12 @@ let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_transparent_background = 1
 colorscheme gruvbox-material
 
-" colorscheme gruvbox
-
 "colorscheme moonfly 
+
 " colorscheme vscode
+" let g:airline_theme='deus'
+
+" colorscheme catppuccin
 
 " -----------------------------------------
 " Keymaps
@@ -169,7 +174,7 @@ autocmd FileType c nnoremap <buffer> <F5> :!make %<<CR>
 " autocmd FileType c nnoremap <buffer> <F5> :w<CR>:!gcc % -o %:r && ToggleTermSendCurrentLine ./%:r<CR>
 
 " nnoremap <F5> :w<CR>:make "%<"<CR>
-autocmd FileType tex nnoremap <buffer> <F5> :w<CR>:!pdflatex %<CR>:!xdg-open %<.pdf<CR>
+" autocmd FileType tex nnoremap <buffer> <F5> :w<CR>:!pdflatex %<CR>:!xdg-open %<.pdf<CR>
 
 
 "Quit and Save
@@ -241,16 +246,17 @@ let g:startify_lists = [
             \ ]
 
 let g:startify_bookmarks = [
-            \ '~/.config/nvim/init.vim'
+            \ '~/.config/nvim/init.vim',
+            \ '~/Documentos',
             \ ]
 let g:startify_session_dir = '~/.config/nvim/sessions'
-highlight StartifyBracket ctermfg=240
-highlight StartifyFooter  ctermfg=240
-highlight StartifyHeader  ctermfg=114
-highlight StartifyNumber  ctermfg=215
-highlight StartifyPath    ctermfg=245
-highlight StartifySlash   ctermfg=240
-highlight StartifySpecial ctermfg=240
+" highlight StartifyBracket ctermfg=240
+" highlight StartifyFooter  ctermfg=240
+" highlight StartifyHeader  ctermfg=114
+" highlight StartifyNumber  ctermfg=215
+" highlight StartifyPath    ctermfg=245
+" highlight StartifySlash   ctermfg=240
+" highlight StartifySpecial ctermfg=240
 
 "----------------------------------------------------------------------------
 
@@ -384,3 +390,10 @@ nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
 " :BarbarEnable - enables barbar (enabled by default)
 " :BarbarDisable - very bad command, should never be used
 
+"-----------------------------------------------------------------------------
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
