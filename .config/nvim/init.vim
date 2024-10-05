@@ -29,17 +29,16 @@ set updatetime=2000
 "
 call plug#begin()
 " Themes
-" Plug 'morhetz/gruvbox'
-" Plug 'ellisonleao/gruvbox.nvim'
 Plug 'sainnhe/gruvbox-material'
-" Plug 'EdenEast/nightfox.nvim' " nightFOx
 " Plug 'folke/tokyonight.nvim'
 " Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
 " Plug 'tiagovla/tokyodark.nvim' 
 " Plug 'Shatur/neovim-ayu'
 Plug 'Mofiqul/vscode.nvim'
 " Plug 'rainglow/vim' " 250+ themes
-" Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'bluz71/vim-nightfly-colors'
+Plug 'rebelot/kanagawa.nvim'
 
 " Utilities
 Plug 'easymotion/vim-easymotion'
@@ -47,6 +46,7 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'vim-airline/vim-airline' " Status bar
+" Plug 'lambdalisue/battery.vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs' " Autopairs
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense
@@ -64,17 +64,18 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'SirVer/ultisnips'
 " Plug 'mlaursen/vim-react-snippets'
 
+
 "Git graph
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 "Tabline
-Plug 'romgrk/barbar.nvim'
-Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
+" Plug 'romgrk/barbar.nvim'
+" Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
 
-Plug 'junegunn/rainbow_parentheses.vim'
+" Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'HiPhish/rainbow-delimiters.nvim'
 
-
+" Git changes
 " Plug 'airblade/vim-gitgutter'
 if has('nvim') || has('patch-8.0.902')
   Plug 'mhinz/vim-signify'
@@ -87,6 +88,7 @@ endif
 
 " use it with gaip see :h
 " Plug 'junegunn/vim-easy-align'
+
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
@@ -112,10 +114,10 @@ endif
 "" Available values: 'hard', 'medium'(default), 'soft'
 "" This configuration option should be placed before `colorscheme gruvbox-material`.
 
-let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_contrast_dark = "medium"
 set background=dark
 let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_foreground='original'
+let g:gruvbox_material_foreground='gruvbox'
 let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_transparent_background = 1
 colorscheme gruvbox-material
@@ -123,9 +125,11 @@ colorscheme gruvbox-material
 "colorscheme moonfly 
 
 " colorscheme vscode
+" colorscheme nightfly
 " let g:airline_theme='deus'
 
 " colorscheme catppuccin
+" colorscheme kanagawa-dragon
 
 " -----------------------------------------
 " Keymaps
@@ -150,22 +154,12 @@ nnoremap <A-1> :ToggleTerm direction=horizontal size=10<cr>
 nnoremap <A-2> :ToggleTerm direction=vertical size=40<cr>
 nnoremap <A-3> :ToggleTerm direction=float<cr>
 
-" Custom function to compile and run
-function! CompileAndRun()
-    if &filetype == 'cpp'
-        exec 'w'
-        exec 'ToggleTerm direction=float'
-        call feedkeys(":!g++ % -o %< && ./".expand('%<')."\<CR>")
-    elseif &filetype == 'c'
-        exec 'w'
-        exec 'ToggleTerm direction=float'
-        call feedkeys(":!gcc % -o %< && ./".expand('%<')."\<CR>")
-    endif
-endfunction
 
 " Map F5 to the custom function
-autocmd FileType cpp nnoremap <buffer> <F5> :!make %<<CR>
-autocmd FileType c nnoremap <buffer> <F5> :!make %<<CR>
+inoremap <F5> <Esc>:!make %<<CR>
+nnoremap <F5> :!make %<<CR>
+" autocmd FileType cpp nnoremap <buffer> <F5> :!make %<<CR>
+" autocmd FileType c nnoremap <buffer> <F5> :!make %<<CR>
 
 " Compile and run cpp
 " autocmd FileType cpp nnoremap <buffer> <F5> :w<CR>:!g++ % -o %:r && ToggleTermSendCurrentLine ./%:r<CR>
@@ -178,7 +172,8 @@ autocmd FileType c nnoremap <buffer> <F5> :!make %<<CR>
 
 
 "Quit and Save
-nnoremap <C-q> :q!<CR>
+nnoremap <C-q> :q<CR>
+nnoremap <A-q> :q!<CR>
 nnoremap <C-s> :w<CR>
 
 " Easymotion
@@ -290,21 +285,42 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
+" airline symbols see :h airline_customization
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = '󰌾'
 let g:airline_symbols.linenr = ''
 
+" let g:airline_left_alt_sep = ' '
+let g:airline_left_alt_sep = ''
+" let g:airline_left_sep = ' '
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.maxlinenr = '󰈙'
+let g:airline_symbols.colnr = ''
+
+" Airline bar
+let g:airline#extensions#tabline#enabled = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>0 <Plug>AirlineSelectTab0
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>+ <Plug>AirlineSelectNextTab
+
+let g:airline#extensions#disable_rtp_load = 1
 "----------------------------------------------------------------------------
- " Tags rainbow
-let g:rainbow_active = 1
-let g:rainbow#max_level = 16
-let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-autocmd FileType * RainbowParentheses 
+" Tags rainbow
+" let g:rainbow_active = 1
+" let g:rainbow#max_level = 16
+" let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+" autocmd FileType * RainbowParentheses 
 
 
 " " This is necessary for VimTeX to load properly. The "indent" is optional.
@@ -337,63 +353,63 @@ autocmd FileType * RainbowParentheses
 " let maplocalleader = ","
 "----------------------------------------------------------------------------
 
-" Move to previous/next
-nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
-nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
+" " Move to previous/next
+" nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
+" nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
 
-" Re-order to previous/next
-nnoremap <silent>    <A-<> <Cmd>BufferMovePrevious<CR>
-nnoremap <silent>    <A->> <Cmd>BufferMoveNext<CR>
+" " Re-order to previous/next
+" nnoremap <silent>    <A-<> <Cmd>BufferMovePrevious<CR>
+" nnoremap <silent>    <A->> <Cmd>BufferMoveNext<CR>
 
-" Goto buffer in position...
-" nnoremap <silent>    <A-1> <Cmd>BufferGoto 1<CR>
-" nnoremap <silent>    <A-2> <Cmd>BufferGoto 2<CR>
-" nnoremap <silent>    <A-3> <Cmd>BufferGoto 3<CR>
-" nnoremap <silent>    <A-4> <Cmd>BufferGoto 4<CR>
-" nnoremap <silent>    <A-5> <Cmd>BufferGoto 5<CR>
-" nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
-" nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
-" nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
-" nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
-" nnoremap <silent>    <A-0> <Cmd>BufferLast<CR>
+" " Goto buffer in position...
+" " nnoremap <silent>    <A-1> <Cmd>BufferGoto 1<CR>
+" " nnoremap <silent>    <A-2> <Cmd>BufferGoto 2<CR>
+" " nnoremap <silent>    <A-3> <Cmd>BufferGoto 3<CR>
+" " nnoremap <silent>    <A-4> <Cmd>BufferGoto 4<CR>
+" " nnoremap <silent>    <A-5> <Cmd>BufferGoto 5<CR>
+" " nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
+" " nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
+" " nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
+" " nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
+" " nnoremap <silent>    <A-0> <Cmd>BufferLast<CR>
 
-" Pin/unpin buffer
-nnoremap <silent>    <A-p> <Cmd>BufferPin<CR>
+" " Pin/unpin buffer
+" nnoremap <silent>    <A-p> <Cmd>BufferPin<CR>
 
-" Close buffer
-nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
-" Restore buffer
-nnoremap <silent>    <A-s-c> <Cmd>BufferRestore<CR>
+" " Close buffer
+" nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
+" " Restore buffer
+" nnoremap <silent>    <A-s-c> <Cmd>BufferRestore<CR>
 
-" Wipeout buffer
-"                          :BufferWipeout
-" Close commands
-"                          :BufferCloseAllButCurrent
-"                          :BufferCloseAllButVisible
-"                          :BufferCloseAllButPinned
-"                          :BufferCloseAllButCurrentOrPinned
-"                          :BufferCloseBuffersLeft
-"                          :BufferCloseBuffersRight
+" " Wipeout buffer
+" "                          :BufferWipeout
+" " Close commands
+" "                          :BufferCloseAllButCurrent
+" "                          :BufferCloseAllButVisible
+" "                          :BufferCloseAllButPinned
+" "                          :BufferCloseAllButCurrentOrPinned
+" "                          :BufferCloseBuffersLeft
+" "                          :BufferCloseBuffersRight
 
-" Magic buffer-picking mode
-nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
-nnoremap <silent> <C-p>    <Cmd>BufferPickDelete<CR>
+" " Magic buffer-picking mode
+" nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
+" nnoremap <silent> <C-p>    <Cmd>BufferPickDelete<CR>
 
-" Sort automatically by...
-nnoremap <silent> <Space>bb <Cmd>BufferOrderByBufferNumber<CR>
-nnoremap <silent> <Space>bn <Cmd>BufferOrderByName<CR>
-nnoremap <silent> <Space>bd <Cmd>BufferOrderByDirectory<CR>
-nnoremap <silent> <Space>bl <Cmd>BufferOrderByLanguage<CR>
-nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
+" " Sort automatically by...
+" nnoremap <silent> <Space>bb <Cmd>BufferOrderByBufferNumber<CR>
+" nnoremap <silent> <Space>bn <Cmd>BufferOrderByName<CR>
+" nnoremap <silent> <Space>bd <Cmd>BufferOrderByDirectory<CR>
+" nnoremap <silent> <Space>bl <Cmd>BufferOrderByLanguage<CR>
+" nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
 
-" Other:
-" :BarbarEnable - enables barbar (enabled by default)
-" :BarbarDisable - very bad command, should never be used
+" " Other:
+" " :BarbarEnable - enables barbar (enabled by default)
+" " :BarbarDisable - very bad command, should never be used
 
 "-----------------------------------------------------------------------------
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
