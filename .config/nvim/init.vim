@@ -24,9 +24,14 @@ set ma
 set noshowmode
 set updatetime=2000
 
-" -----------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 " Plugins
-"
+" -----------------------------------------
+" -----------------------------------------
+" -----------------------------------------
+
 call plug#begin()
 " Themes
 Plug 'sainnhe/gruvbox-material'
@@ -69,8 +74,8 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'tpope/vim-fugitive'
 
 "Tabline
-" Plug 'romgrk/barbar.nvim'
-" Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
+Plug 'romgrk/barbar.nvim'
+Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
 
 " Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'HiPhish/rainbow-delimiters.nvim'
@@ -95,6 +100,16 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 call plug#end()
 
 so ~/.config/nvim/plug-config/treesitter.lua
+
+
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+"  Theme
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+
 " so ~/.config/nvim/plug-config/nightfox.lua
 
 " colorscheme gruvbox-material
@@ -131,8 +146,13 @@ colorscheme gruvbox-material
 " colorscheme catppuccin
 " colorscheme kanagawa-dragon
 
-" -----------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 " Keymaps
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 
 let mapleader=" "
 
@@ -204,7 +224,12 @@ nnoremap <C-c> <Esc>
 " nnoremap <Leader>g 
 
 " ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 " Plugins-Config
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 
 " Startify
 " let g:startify_custom_header = 'startify#center(startify#fortune#cowsay())'
@@ -232,8 +257,8 @@ let g:startify_custom_header =
 let g:startify_custom_footer = 
             \ startify#center(banner)
 
+" \ { 'type': 'files',     'header': ['   MRU']            },                 
 let g:startify_lists = [
-            \ { 'type': 'files',     'header': ['   MRU']            },                 
             \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
             \ { 'type': 'sessions',  'header': ['   Sessions']       },                 
             \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -243,7 +268,9 @@ let g:startify_lists = [
 let g:startify_bookmarks = [
             \ '~/.config/nvim/init.vim',
             \ '~/Documentos',
+            \ '~/.config/fish/config.fish',
             \ ]
+
 let g:startify_session_dir = '~/.config/nvim/sessions'
 " highlight StartifyBracket ctermfg=240
 " highlight StartifyFooter  ctermfg=240
@@ -294,25 +321,26 @@ let g:airline_symbols.linenr = ''
 let g:airline_left_alt_sep = ''
 " let g:airline_left_sep = ' '
 let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
 let g:airline_symbols.maxlinenr = '󰈙'
 let g:airline_symbols.colnr = ''
 
 " Airline bar
-let g:airline#extensions#tabline#enabled = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>0 <Plug>AirlineSelectTab0
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
+" let g:airline#extensions#tabline#enabled = 1
+" nmap <leader>1 <Plug>AirlineSelectTab1
+" nmap <leader>2 <Plug>AirlineSelectTab2
+" nmap <leader>3 <Plug>AirlineSelectTab3
+" nmap <leader>4 <Plug>AirlineSelectTab4
+" nmap <leader>5 <Plug>AirlineSelectTab5
+" nmap <leader>6 <Plug>AirlineSelectTab6
+" nmap <leader>7 <Plug>AirlineSelectTab7
+" nmap <leader>8 <Plug>AirlineSelectTab8
+" nmap <leader>9 <Plug>AirlineSelectTab9
+" nmap <leader>0 <Plug>AirlineSelectTab0
+" nmap <leader>- <Plug>AirlineSelectPrevTab
+" nmap <leader>+ <Plug>AirlineSelectNextTab
 
 let g:airline#extensions#disable_rtp_load = 1
 "----------------------------------------------------------------------------
@@ -353,25 +381,25 @@ let g:airline#extensions#disable_rtp_load = 1
 " let maplocalleader = ","
 "----------------------------------------------------------------------------
 
-" " Move to previous/next
-" nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
-" nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
+" Move to previous/next
+nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
+nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
 
 " " Re-order to previous/next
 " nnoremap <silent>    <A-<> <Cmd>BufferMovePrevious<CR>
 " nnoremap <silent>    <A->> <Cmd>BufferMoveNext<CR>
 
-" " Goto buffer in position...
-" " nnoremap <silent>    <A-1> <Cmd>BufferGoto 1<CR>
-" " nnoremap <silent>    <A-2> <Cmd>BufferGoto 2<CR>
-" " nnoremap <silent>    <A-3> <Cmd>BufferGoto 3<CR>
-" " nnoremap <silent>    <A-4> <Cmd>BufferGoto 4<CR>
-" " nnoremap <silent>    <A-5> <Cmd>BufferGoto 5<CR>
-" " nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
-" " nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
-" " nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
-" " nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
-" " nnoremap <silent>    <A-0> <Cmd>BufferLast<CR>
+" Goto buffer in position...
+nnoremap <silent>    <Leader>1 <Cmd>BufferGoto 1<CR>
+nnoremap <silent>    <Leader>2 <Cmd>BufferGoto 2<CR>
+nnoremap <silent>    <Leader>3 <Cmd>BufferGoto 3<CR>
+nnoremap <silent>    <Leader>4 <Cmd>BufferGoto 4<CR>
+nnoremap <silent>    <Leader>5 <Cmd>BufferGoto 5<CR>
+nnoremap <silent>    <Leader>6 <Cmd>BufferGoto 6<CR>
+nnoremap <silent>    <Leader>7 <Cmd>BufferGoto 7<CR>
+nnoremap <silent>    <Leader>8 <Cmd>BufferGoto 8<CR>
+nnoremap <silent>    <Leader>9 <Cmd>BufferGoto 9<CR>
+nnoremap <silent>    <Leader>0 <Cmd>BufferLast<CR>
 
 " " Pin/unpin buffer
 " nnoremap <silent>    <A-p> <Cmd>BufferPin<CR>
