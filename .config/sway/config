@@ -1,0 +1,122 @@
+output * bg #123456 solid_color
+
+workspace 1 output eDP-1
+
+input * xkb_layout latam
+
+input "type:touchpad" {
+  tap enabled
+  natural_scroll enabled
+}
+
+output HDMI-A-1 {
+  mode 1366x768
+  position 0,0 
+  enable
+}
+
+font RobotoMono Nerd Font 12
+
+focus_follows_mouse no
+
+#setters
+
+#using win button
+set $mod Mod4
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $term kitty
+
+#mouse 
+floating_modifier $mod normal
+
+#reload config
+bindsym $mod+Shift+c reload
+
+#quit
+bindsym $mod+q kill
+
+bindsym $mod+Return exec $term
+
+#rofi launcher
+bindsym $mod+d exec rofi -show drun
+
+#switch workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+#send to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+#move in workspace
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+#resize windows
+bindsym $mod+Ctrl+$left resize shrink width 10px
+bindsym $mod+Ctrl+$down resize grow height 10px
+bindsym $mod+Ctrl+$up resize shrink height 10px
+bindsym $mod+Ctrl+$right resize grow width 10px
+
+#navigate using tab
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+exec_always waybar
+
+default_border none
+default_floating_border none
+font Roboto 0.001
+titlebar_padding 1
+titlebar_border_thickness 0
+
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+# Subir volumen
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
+
+# Bajar volumen
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
+
+# Silenciar/activar volumen
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Subir brillo
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +2%
+
+# Bajar brillo
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 2%-
+
+#tomar captura de pantalla
+#dependencias: grim slurp swappy
+bindsym Print exec grim ~/Imágenes/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Imágenes/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
+bindsym Ctrl+Print exec grim -g "$(slurp)" - | swappy -f ~/Imágenes/
