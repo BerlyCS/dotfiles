@@ -43,7 +43,8 @@ bindsym $mod+q kill
 bindsym $mod+Return exec $term
 
 #rofi launcher
-bindsym $mod+d exec rofi -show drun
+# bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec wofi --show drun
 
 #switch workspace
 bindsym $mod+1 workspace 1
@@ -102,9 +103,16 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 
 # Subir volumen
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
+# Subir volumen microfno
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id pactl set-source-volume @DEFAULT_SOURCE@ +1%
 
 # Bajar volumen
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
+# Bajar volumen microfono
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id pactl set-source-volume @DEFAULT_SOURCE@ -1%
+
+# Silenciar/activar volumen
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Silenciar/activar volumen
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -119,4 +127,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 2%-
 #dependencias: grim slurp swappy
 bindsym Print exec grim ~/Imágenes/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
 bindsym Shift+Print exec grim -g "$(slurp)" ~/Imágenes/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
-bindsym Ctrl+Print exec grim -g "$(slurp)" - | swappy -f ~/Imágenes/
+bindsym Ctrl+Print exec grim -g "$(slurp)" - | swappy -f -
+
+#fullscreen
+bindsym $mod+f fullscreen
