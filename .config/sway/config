@@ -118,7 +118,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Subir brillo
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +2%
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +3%
 
 # Bajar brillo
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 2%-
@@ -131,3 +131,5 @@ bindsym Ctrl+Print exec grim -g "$(slurp)" - | swappy -f -
 
 #fullscreen
 bindsym $mod+f fullscreen
+
+bindsym $mod+p exec gtklock

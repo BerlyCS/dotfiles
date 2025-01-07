@@ -272,6 +272,8 @@ let g:startify_bookmarks = [
             \ '~/.config/nvim/init.vim',
             \ '~/Documentos',
             \ '~/.config/fish/config.fish',
+            \ '~/.config/sway/config',
+            \ '~/.config/waybar/config',
             \ ]
 
 let g:startify_session_dir = '~/.config/nvim/sessions'
@@ -444,3 +446,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 " nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+"-----------------------------------------------------------------------------
+"
+lua require('competitest').setup() -- to use default configuration

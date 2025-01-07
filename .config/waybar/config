@@ -117,7 +117,7 @@
             "warning": 25,
             "critical": 10
         },
-        "tooltip": false
+        "tooltip": true
     },
     "network": {
         "format-wifi": "{icon} {signalStrength}%",
