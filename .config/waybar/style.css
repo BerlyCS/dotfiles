@@ -1,7 +1,7 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: RobotoMono NerdFont, Roboto, Noto Sans CJK JP, sans-serif;
+    font-family: JetBrainsMono NF Thin, Noto Sans CJK JP, sans-serif;
     font-weight: bold;
     font-size: 13px;
     min-height: 0;
@@ -9,20 +9,23 @@
 
 window#waybar {
     background: transparent;
-    color: #ffffff;
+    color: #171717;
+
 }
 
 window > box {
     /*margin: 0 0 0 16px;*/
-    background: #171717;/*#282a36;*/
+    background: #000000;/*#282a36;*/
     border-bottom: 3px transparent;
     color: white;
 }
 
 tooltip {
   color: white;
-  background-color: #171717;
+  background-color: #000000;
   text-shadow: none;
+  border: solid white 2px;
+  border-radius: 6px;
 }
 
 #workspaces {
@@ -56,7 +59,7 @@ tooltip {
     border-bottom: 3px solid #ffb52a;
 }
 
-#window, #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-disk, #custom-weather, #language, #tray, #mode, #idle_inhibitor {
+#window, #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-disk, #custom-weather, #language, #tray, #mode, #idle_inhibitor, #custom-powermenu {
    padding: 0 2px;
     margin: 0 3px;
     background: transparent;
@@ -74,8 +77,8 @@ tooltip {
 #battery.charging {
     /*border-bottom: 3px solid #51e258;*/
     animation-name :blink;
-    animation-duration: 1.0s;
-    animation-timing-function: ease-out;
+    animation-duration: 2.0s;
+    animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
@@ -98,8 +101,17 @@ tooltip {
     }
 }
 
+@keyframes blink_button {
+  from {
+    background-color: black;
+  }
+  to {
+    background-color: red;
+  }
+}
+
 *#battery.critical:not(.charging) {
-    animation-name: blinkLow;
+    animation-name: blink_button;
     animation-duration: 0.3s;
     animation-timing-function: ease-out;
     animation-iteration-count: infinite;
@@ -108,6 +120,11 @@ tooltip {
 
 #cpu {
     border-bottom: 3px solid #51e258;
+}
+
+#cpu button.focused {
+  color: #919381;
+  border-top: 2px solid #c9545d;
 }
 
 #memory {
@@ -165,4 +182,10 @@ tooltip {
 #idle_inhibitor.activated {
     background-color: #ecf0f1;
     color: #2d3436;
+}
+
+#custom-powermenu {
+  background-color: #191919;
+  color: #d9e3ee;
+  border-bottom: groove greenyellow 3px;
 }
