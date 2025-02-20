@@ -11,14 +11,14 @@ set showcmd
 set ruler
 set encoding=UTF-8
 set showmatch
-set relativenumber
-set autoindent
+" set relativenumber
 set laststatus=4
 set sw=2
 set tabstop=6
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+set autoindent
 set smarttab
 set ma
 set noshowmode
@@ -52,7 +52,7 @@ Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'vim-airline/vim-airline' " Status bar
 " Plug 'lambdalisue/battery.vim'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs' " Autopairs
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
@@ -181,7 +181,7 @@ nnoremap <A-3> :ToggleTerm direction=float<cr>
 " Map F5 to the custom function
 inoremap <F5> <Esc>:!make %<<CR>
 nnoremap <F5> :!make %<<CR>
-" autocmd FileType cpp nnoremap <buffer> <F5> :!make %<<CR>
+  " autocmd FileType cpp nnoremap <buffer> <F5> :!make %<<CR>
 " autocmd FileType c nnoremap <buffer> <F5> :!make %<<CR>
 
 " Compile and run cpp
@@ -198,6 +198,7 @@ autocmd FileType tex nnoremap <buffer> <F5> :w<CR>:!rm main.pdf; miktex-pdflatex
 nnoremap <C-q> :q<CR>
 nnoremap <A-q> :q!<CR>
 nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
 
 " Easymotion
 nmap <Leader>s <Plug>(easymotion-s2)
@@ -387,8 +388,8 @@ let g:vimtex_compiler_method = 'miktex-pdflatex'
 "----------------------------------------------------------------------------
 
 " Move to previous/next
-nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
-nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
+nnoremap <silent>    <C-,> <Cmd>BufferPrevious<CR>
+nnoremap <silent>    <C-.> <Cmd>BufferNext<CR>
 
 " " Re-order to previous/next
 " nnoremap <silent>    <A-<> <Cmd>BufferMovePrevious<CR>
