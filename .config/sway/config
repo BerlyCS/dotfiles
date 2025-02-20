@@ -1,4 +1,5 @@
-output * bg #123456 solid_color
+# output * bg #123456 solid_color
+output * bg "~/Imágenes/beach.jpg" fill
 
 workspace 1 output eDP-1
 
@@ -7,7 +8,16 @@ input * xkb_layout latam
 input "type:touchpad" {
   tap enabled
   natural_scroll enabled
+  dwt off  
+  accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
+  pointer_accel 0.5 # set mouse sensitivity (between -1 and 1)
 }
+
+input "type:Mouse" {
+  accel_profile "flat"
+  pointer_accel 0.5
+}
+exec_always waybar
 
 output HDMI-A-1 {
   mode 1366x768
@@ -15,9 +25,19 @@ output HDMI-A-1 {
   enable
 }
 
-font RobotoMono Nerd Font 12
+output eDPI-1 {
+  mode 1366x768
+  position 0,0
+  enable
+}
+
+# font RobotoMono Nerd Font 12
+font JetBrainsMono NF Thin 12
 
 focus_follows_mouse no
+
+# workspace_layout stacking
+# workspace_layout tabbed
 
 #setters
 
@@ -30,6 +50,8 @@ set $up k
 set $right l
 
 set $term kitty
+set $file_manager dolphin
+set $browser firefox
 
 #mouse 
 floating_modifier $mod normal
@@ -42,11 +64,17 @@ bindsym $mod+q kill
 
 bindsym $mod+Return exec $term
 
+bindsym $mod+e exec $file_manager
+
+bindsym $mod+b exec $browser
+
+bindsym $mod+Shift+f floating toggle
+
 #rofi launcher
 # bindsym $mod+d exec rofi -show drun
 bindsym $mod+d exec wofi --show drun
 
-#switch workspace
+#switch workspacetry to remove Frenc
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -91,7 +119,6 @@ bindsym $mod+Ctrl+$right resize grow width 10px
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-exec_always waybar
 
 default_border none
 default_floating_border none
@@ -123,6 +150,19 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +3%
 # Bajar brillo
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 2%-
 
+#music controller ------------
+#music next
+bindsym XF86AudioNext exec playerctl next
+bindsym $mod+Shift+XF86AudioRaiseVolume exec playerctl next
+
+bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+Shift+XF86AudioLowerVolume exec playerctl previous
+
+bindsym XF86AudioPlay exec playerctl play-pause
+
+# -----------------------------
+
+
 #tomar captura de pantalla
 #dependencias: grim slurp swappy
 bindsym Print exec grim ~/Imágenes/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
@@ -133,3 +173,14 @@ bindsym Ctrl+Print exec grim -g "$(slurp)" - | swappy -f -
 bindsym $mod+f fullscreen
 
 bindsym $mod+p exec gtklock
+
+#specific apps config
+for_window [title="Chess"] floating enable
+
+# minimize
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+#battery notificator
+exec_always --no-startup-id ~/.config/sway/battery.sh
+exec_always XDG_MENU_PREFIX=arch- kbuildsycoca6
