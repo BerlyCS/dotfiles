@@ -244,16 +244,17 @@
     "dynamic-order": [
       "title"
     ],
-    "interval": 5,
+    "interval": 2,
     "status-icons": {
-      "paused": "⏸"
+      //"paused": "⏸"
+      "paused": ""
     },
     "ignored-players": [
       "firefox"
     ]
   },
   "custom/powermenu": {
-    "format": "⏻",
+    "format": "⏻ ",
     "icon-size": 14,
     "spacing": 5,
     "tooltip": false,

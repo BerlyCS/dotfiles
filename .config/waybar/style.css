@@ -1,6 +1,6 @@
 * {
     border: none;
-    border-radius: 0;
+    border-radius: 0px;
     font-family: JetBrainsMono NF Thin, Noto Sans CJK JP, sans-serif;
     font-weight: bold;
     font-size: 13px;
@@ -8,28 +8,32 @@
 }
 
 window#waybar {
-    background: transparent;
+    background: rgba(0, 0, 0, 0);
     color: #171717;
-
 }
 
 window > box {
     /*margin: 0 0 0 16px;*/
-    background: #000000;/*#282a36;*/
-    border-bottom: 3px transparent;
+    background: rgba(12,12,25,0);/*#282a36;*/
+    /* filter: blur(10px); */
+    /* border-bottom: 3px transparent; */
     color: white;
+    margin: 2px 4px;
+    padding: 2px;
+    border-radius: 9px;
+    border: solid transparent 1px;
 }
 
 tooltip {
-  color: white;
-  background-color: #000000;
+  color: gray;
+  background-color: rgba(0, 0, 0, 127);
   text-shadow: none;
-  border: solid white 2px;
+  border: solid gray 2px;
   border-radius: 6px;
 }
 
 #workspaces {
-    margin-left: 2px;
+    margin-left: 3px;
     margin-right: 2px;
 }
 
@@ -67,11 +71,12 @@ tooltip {
 }
 
 #clock {
-    border-bottom: 3px solid #ff6e67;
+    border-bottom: 1px solid #ff6e67;
+    border-top: #020202;
 }
 
 #battery {
-    border-bottom: 3px solid #ffb52a;
+    border-bottom: 2px solid #ffb52a;
 }
 
 #battery.charging {
@@ -119,7 +124,7 @@ tooltip {
 }
 
 #cpu {
-    border-bottom: 3px solid #51e258;
+    border-bottom: 1px solid #51e258;
 }
 
 #cpu button.focused {
@@ -128,39 +133,39 @@ tooltip {
 }
 
 #memory {
-    border-bottom: 3px solid #8ae8fd;
+    border-bottom: 1px solid #8ae8fd;
 }
 
 #backlight {
-    border-bottom: 3px solid #90b1b1;
+    border-bottom: 1px solid #90b1b1;
 }
 
 #network {
-    border-bottom: 3px solid #eb3e86;
+    border-bottom: 1px solid #eb3e86;
 }
 
 #network.disconnected {
-    border-bottom: 3px solid #ff676e; /*#ff676e;*/
+    border-bottom: 1px solid #ff676e; /*#ff676e;*/
 }
 
 #pulseaudio {
-    border-bottom: 3px solid #3f87f6;
+    border-bottom: 1px solid #3f87f6;
 }
 
 #pulseaudio.muted {
-    border-bottom: 3px solid #bfbfbf;
+    border-bottom: 1px solid #bfbfbf;
 }
 
 #custom-disk {
-    border-bottom: 3px solid #51e258;
+    border-bottom: 1px solid #51e258;
 }
 
 #custom-weather {
-    border-bottom: 3px solid #3f87f6; 
+    border-bottom: 1px solid #3f87f6; 
 }
 
 #language {
-    border-bottom: 3px solid #fbbc01; 
+    border-bottom: 1px solid #fbbc01; 
 }
 
 #temperature {
@@ -172,7 +177,7 @@ tooltip {
 }
 
 #tray {
-    border-bottom: 3px solid #3f87f6; /* #ff676e; */
+    border-bottom: 1px solid #3f87f6; /* #ff676e; */
 }
 
 #idle_inhibitor {
@@ -185,7 +190,7 @@ tooltip {
 }
 
 #custom-powermenu {
-  background-color: #191919;
   color: #d9e3ee;
-  border-bottom: groove greenyellow 3px;
+  border-bottom:greenyellow 1px;
+  margin: 0 5px;
 }
