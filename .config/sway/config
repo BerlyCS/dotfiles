@@ -1,5 +1,6 @@
 # output * bg #123456 solid_color
-output * bg "~/Imágenes/beach.jpg" fill
+# output * bg "~/Imágenes/beach.jpg" fill
+output * bg "~/Imágenes/mountain.jpg" fill
 
 workspace 1 output eDP-1
 
@@ -10,7 +11,7 @@ input "type:touchpad" {
   natural_scroll enabled
   dwt off  
   accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
-  pointer_accel 0.5 # set mouse sensitivity (between -1 and 1)
+  pointer_accel 0.6 # set mouse sensitivity (between -1 and 1)
 }
 
 input "type:Mouse" {
@@ -36,6 +37,7 @@ font JetBrainsMono NF Thin 12
 
 focus_follows_mouse no
 
+xwayland enable
 # workspace_layout stacking
 # workspace_layout tabbed
 
@@ -124,9 +126,10 @@ default_border none
 default_floating_border none
 font Roboto 0.001
 titlebar_padding 1
-titlebar_border_thickness 0
+titlebar_border_thickness 1
 
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec_always export XDG_CURRENT_DESKTOP=sway
 
 # Subir volumen
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
@@ -165,9 +168,16 @@ bindsym XF86AudioPlay exec playerctl play-pause
 
 #tomar captura de pantalla
 #dependencias: grim slurp swappy
-bindsym Print exec grim ~/Imágenes/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
-bindsym Shift+Print exec grim -g "$(slurp)" ~/Imágenes/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
-bindsym Ctrl+Print exec grim -g "$(slurp)" - | swappy -f -
+
+# full screenshot
+bindsym Print exec grim "$HOME/Imágenes/screenshots/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png" && notify-send "Screenshot taken successfully!" "Saved in ~/Imágenes/screenshots"
+
+# Partial screenshot
+bindsym Shift+Print exec grim -g "$(slurp)" "$HOME/Imágenes/screenshots/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png" && notify-send  "Screenshot taken successfully!" "Saved in ~/Imágenes/screenshots"
+
+# Modify partial screenshot
+bindsym Ctrl+Print exec sh -c 'grim -g "$(slurp)" - | swappy -f -'
+
 
 #fullscreen
 bindsym $mod+f fullscreen
@@ -182,5 +192,22 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 #battery notificator
-exec_always --no-startup-id ~/.config/sway/battery.sh
-exec_always XDG_MENU_PREFIX=arch- kbuildsycoca6
+exec --no-startup-id ~/.config/sway/battery.sh
+exec XDG_MENU_PREFIX=arch- kbuildsycoca6
+
+blur enable
+blur_xray enable
+shadows enable
+corner_radius 4
+default_dim_inactive 0.1
+
+gaps inner 3
+
+layer_effects "waybar" {
+    blur enable;
+    blur_xray enable;
+    blur_radius 3;
+    blur_ignore_transparent disable;
+    shadows enable;
+    corner_radius 20;
+}
