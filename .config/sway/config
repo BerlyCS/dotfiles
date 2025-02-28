@@ -18,7 +18,6 @@ input "type:Mouse" {
   accel_profile "flat"
   pointer_accel 0.5
 }
-exec_always waybar
 
 output HDMI-A-1 {
   mode 1366x768
@@ -38,9 +37,39 @@ font JetBrainsMono NF Thin 12
 focus_follows_mouse no
 
 xwayland enable
+
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec_always export XDG_CURRENT_DESKTOP=sway
+exec_always pkill waybar; waybar
+
+#battery notificator
+exec --no-startup-id ~/.config/sway/battery.sh
+
+# dolphin default 
+exec XDG_MENU_PREFIX=arch- kbuildsycoca6
+
+### Autostart
+exec autotiling
+
 # workspace_layout stacking
 # workspace_layout tabbed
+# for_window [class=".*"] split toggle
+# for_window [app_id=".*"] split toggle
+# default_orientation vertical
 
+blur enable
+blur_xray disable
+blur_radius 2
+shadows disable
+corner_radius 5
+default_dim_inactive 0.1
+
+# Disable borders and titlebar
+default_border none
+default_floating_border none
+font Roboto 0.001
+titlebar_padding 1
+titlebar_border_thickness 1
 #setters
 
 #using win button
@@ -121,16 +150,6 @@ bindsym $mod+Ctrl+$right resize grow width 10px
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-
-default_border none
-default_floating_border none
-font Roboto 0.001
-titlebar_padding 1
-titlebar_border_thickness 1
-
-exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-exec_always export XDG_CURRENT_DESKTOP=sway
-
 # Subir volumen
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
 # Subir volumen microfno
@@ -184,30 +203,22 @@ bindsym $mod+f fullscreen
 
 bindsym $mod+p exec gtklock
 
-#specific apps config
-for_window [title="Chess"] floating enable
-
 # minimize
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-#battery notificator
-exec --no-startup-id ~/.config/sway/battery.sh
-exec XDG_MENU_PREFIX=arch- kbuildsycoca6
-
-blur enable
-blur_xray enable
-shadows enable
-corner_radius 4
-default_dim_inactive 0.1
+#specific apps config
+for_window [title="Chess"] floating enable
+for_window [app_id="kitty"] blur_xray enable
 
 gaps inner 3
+gaps outer 4
 
 layer_effects "waybar" {
-    blur enable;
-    blur_xray enable;
-    blur_radius 3;
-    blur_ignore_transparent disable;
-    shadows enable;
-    corner_radius 20;
+  blur enable;
+  blur_xray enable;
 }
+
+# blur_radius 3;
+# shadows disable;
+# corner_radius 5; 

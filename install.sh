@@ -19,3 +19,5 @@ nvim_install() {
   fi
   mv .config/nvim ~/.config/
 }
+
+echo "Script for installation of dotfiles on Arch Linux. Soon"

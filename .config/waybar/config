@@ -7,7 +7,8 @@
   "modules-left": [
     "sway/workspaces",
     "sway/mode",
-    "sway/window"
+    "sway/window",
+    "sway/scratchpad"
   ],
   //"modules-center": ["custom/weather"],
   "modules-center": [
@@ -18,6 +19,7 @@
     "cpu",
     "memory",
     "custom/disk",
+    "power-profiles-daemon",
     "battery",
     "network",
     "pulseaudio",
@@ -63,9 +65,16 @@
     "format": "{}"
     //"max-length": 100
   },
+  "sway/scratchpad": {
+    "format": "{icon} {count}",
+    "show-empty": false,
+    "format-icons": ["", ""],
+    "tooltip": true,
+    "tooltip-format": "{app}: {title}"
+  },
   "backlight": {
         // "device": "acpi_video1",
-        "format": "{icon} {}% ",
+        "format": "{icon} {percent}%",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
   "idle_inhibitor": {
@@ -80,7 +89,8 @@
     "spacing": 5
   },
   "clock": {
-    "tooltip-format": "<tt>{calendar}</tt>",
+    //"tooltip-format": "<tt>{calendar}</tt>",  
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     //"format": " {:%a %d %b  %H:%M}",
     //"format-alt": " {:%F  %H:%M:%S}",
     "format-alt": "   {:%a, %d %b %Y} ",
@@ -103,16 +113,9 @@
     "format-critical": "{temperatureC}°C ",
     "format": "{temperatureC}°C "
   },
-  "backlight": {
-    // "device": "acpi_video1",
-    "format": "{percent}% {icon}",
-    "format-icons": [
-      "",
-      ""
-    ]
-  },
   "battery": {
     "format": "{icon} {capacity}%",
+
     "format-icons": {
       "charging": [
         "󰢜",
@@ -142,9 +145,20 @@
     "interval": 5,
     "states": {
       "warning": 25,
-      "critical": 10
+      "critical": 15
     },
     "tooltip": true
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
   },
   "network": {
     "format-wifi": "{icon} {signalStrength}%",

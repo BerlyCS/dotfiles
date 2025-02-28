@@ -8,14 +8,14 @@
 }
 
 window#waybar {
-    background: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
     color: #171717;
+    margin: 4px;
 }
 
 window > box {
     /*margin: 0 0 0 16px;*/
     background: rgba(12,12,25,0);/*#282a36;*/
-    /* filter: blur(10px); */
     /* border-bottom: 3px transparent; */
     color: white;
     margin: 2px 4px;
@@ -26,7 +26,7 @@ window > box {
 
 tooltip {
   color: gray;
-  background-color: rgba(0, 0, 0, 127);
+  background-color: rgba(0, 0, 0, 0.8);
   text-shadow: none;
   border: solid gray 2px;
   border-radius: 6px;
@@ -63,7 +63,7 @@ tooltip {
     border-bottom: 3px solid #ffb52a;
 }
 
-#window, #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-disk, #custom-weather, #language, #tray, #mode, #idle_inhibitor, #custom-powermenu {
+#window, #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-disk, #custom-weather, #language, #tray, #mode, #idle_inhibitor, #custom-powermenu, #power-profiles-daemon {
    padding: 0 2px;
     margin: 0 3px;
     background: transparent;
@@ -86,6 +86,7 @@ tooltip {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    color: greenyellow;
 }
 
 @keyframes blink {
@@ -93,7 +94,7 @@ tooltip {
         border-bottom: 3px solid transparent;
     }
     100% {
-        border-bottom: 3px solid #ffb52a;
+        border-bottom: 3px solid lightgreen;
     }
 }
 
@@ -121,6 +122,8 @@ tooltip {
     animation-timing-function: ease-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    border-bottom: red;
+    color: red;
 }
 
 #cpu {
@@ -193,4 +196,11 @@ tooltip {
   color: #d9e3ee;
   border-bottom:greenyellow 1px;
   margin: 0 5px;
+}
+
+#power-profiles-daemon {
+  color: azure;
+  border-bottom: solid coral 1px;
+  /* margin: 0 6px 0 2px; */
+  padding: 0 6px 0 2px;
 }
