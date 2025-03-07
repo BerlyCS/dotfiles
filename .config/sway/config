@@ -39,8 +39,8 @@ focus_follows_mouse no
 xwayland enable
 
 exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-exec_always export XDG_CURRENT_DESKTOP=sway
-exec_always pkill waybar; waybar
+# exec_always export XDG_CURRENT_DESKTOP=sway
+exec_always waybar
 
 #battery notificator
 exec --no-startup-id ~/.config/sway/battery.sh
@@ -128,6 +128,10 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+# move workspace to another display
+bindsym $mod+greater move workspace to output right
+bindsym $mod+less move workspace to output left
 
 #move in workspace
 bindsym $mod+$left focus left
