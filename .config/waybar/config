@@ -197,6 +197,7 @@
       ]
     },
     "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    "on-click-middle": "pavucontrol",
   },
   "pulseaudio#input": {
     "format-source": " {volume}%",

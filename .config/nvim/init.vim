@@ -191,7 +191,7 @@ nnoremap <F5> :!make %<<CR>
 " autocmd FileType c nnoremap <buffer> <F5> :w<CR>:!gcc % -o %:r && ToggleTermSendCurrentLine ./%:r<CR>
 
 " nnoremap <F5> :w<CR>:make "%<"<CR>
-autocmd FileType tex nnoremap <buffer> <F5> :w<CR>:!rm main.pdf; miktex-pdflatex -quiet %; okular %<.pdf<CR>
+autocmd FileType tex nnoremap <buffer> <F5> :w<CR>:!rm main.pdf; pdflatex -quiet %; okular %<.pdf<CR>
 
 
 "Quit and Save
@@ -380,7 +380,7 @@ let g:vimtex_view_general_viewer = 'okular'
 " " supported backends and further explanation is provided in the documentation,
 " " see ":help vimtex-compiler".
 " " let g:vimtex_compiler_method = 'latexrun'
-let g:vimtex_compiler_method = 'miktex-pdflatex'
+let g:vimtex_compiler_method = 'pdflatex'
 
 " " Most VimTeX mappings rely on localleader and this can be changed with the
 " " following line. The default is usually fine and is the symbol "\".

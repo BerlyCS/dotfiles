@@ -65,7 +65,7 @@ corner_radius 5
 default_dim_inactive 0.1
 
 # Disable borders and titlebar
-default_border none
+default_border pixel 2
 default_floating_border none
 font Roboto 0.001
 titlebar_padding 1
