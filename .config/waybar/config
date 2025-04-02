@@ -147,7 +147,8 @@
       "warning": 25,
       "critical": 15
     },
-    "tooltip": true
+    "tooltip": true,
+    "tooltip-format":"Time: {time}\nPower: {power}"
   },
   "power-profiles-daemon": {
     "format": "{icon}",
@@ -196,8 +197,8 @@
         ""
       ]
     },
-    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-    "on-click-middle": "pavucontrol",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-middle": "pavucontrol"
   },
   "pulseaudio#input": {
     "format-source": " {volume}%",

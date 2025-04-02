@@ -45,6 +45,9 @@ exec_always waybar
 #battery notificator
 exec --no-startup-id ~/.config/sway/battery.sh
 
+#lock
+exec --no-startup-id ~/.config/sway/lock.sh
+
 # dolphin default 
 exec XDG_MENU_PREFIX=arch- kbuildsycoca6
 
