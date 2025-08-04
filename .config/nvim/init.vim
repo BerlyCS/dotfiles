@@ -52,7 +52,7 @@ Plug 'ryanoasis/vim-devicons' " Developer Icons
 Plug 'tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'vim-airline/vim-airline' " Status bar
 " Plug 'lambdalisue/battery.vim'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs' " Autopairs
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
@@ -62,7 +62,7 @@ Plug 'Yggdroot/indentLine'
 " Plug 'tribela/vim-transparent'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'mhinz/vim-startify'
-Plug 'christoomey/vim-tmux-navigator'
+" Plug 'christoomey/vim-tmux-navigator'
 " Copilot
 " Plug 'github/copilot.vim'
 " React
@@ -89,13 +89,13 @@ else
 endif
 
 " Plug 'lervag/vimtex'
-Plug 'lervag/vimtex', { 'tag': 'v2.15' }
+" Plug 'lervag/vimtex', { 'tag': 'v2.15' }
 
 " use it with gaip see :h
 " Plug 'junegunn/vim-easy-align'
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
 " Competitive programming helper
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
@@ -103,6 +103,7 @@ Plug 'xeluxee/competitest.nvim'
 call plug#end()
 
 so ~/.config/nvim/plug-config/treesitter.lua
+so ~/.config/nvim/plug-config/competitest.lua
 
 
 " ------------------------------------------------------------------------------
@@ -132,12 +133,12 @@ endif
 "" Available values: 'hard', 'medium'(default), 'soft'
 "" This configuration option should be placed before `colorscheme gruvbox-material`.
 
-" let g:gruvbox_contrast_dark = "medium"
-" set background=dark
+let g:gruvbox_contrast_dark = "medium"
+set background=dark
 let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_foreground='mix'
 let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_transparent_background = 1
+" let g:gruvbox_material_transparent_background = 1
 colorscheme gruvbox-material
 
 "colorscheme moonfly 
@@ -181,6 +182,9 @@ nnoremap <A-3> :ToggleTerm direction=float<cr>
 " Map F5 to the custom function
 inoremap <F5> <Esc>:!make %<<CR>
 nnoremap <F5> :!make %<<CR>
+
+inoremap <leader> <F5> <Esc>:CompetiTest run<<CR>
+nnoremap <leader> <F5> :CompetiTest run<<CR>
   " autocmd FileType cpp nnoremap <buffer> <F5> :!make %<<CR>
 " autocmd FileType c nnoremap <buffer> <F5> :!make %<<CR>
 
@@ -324,9 +328,11 @@ let g:airline_symbols.readonly = '󰌾'
 let g:airline_symbols.linenr = ''
 
 " let g:airline_left_alt_sep = ' '
-let g:airline_left_alt_sep = ''
+" let g:airline_left_alt_sep = ''
+let g:airline_left_alt_sep = ' '
 " let g:airline_left_sep = ' '
-let g:airline_left_sep = ''
+" let g:airline_left_sep = ''
+let g:airline_left_sep = ' '
 
 " let g:airline_right_sep = ''
 " let g:airline_right_alt_sep = ''
@@ -371,7 +377,7 @@ let g:airline#extensions#disable_rtp_load = 1
 " let g:vimtex_view_method = 'zathura'
 
 " " Or with a generic interface:
-let g:vimtex_view_general_viewer = 'okular'
+" let g:vimtex_view_general_viewer = 'okular'
 " let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
 " " VimTeX uses latexmk as the default compiler backend. If you use it, which is
@@ -380,7 +386,7 @@ let g:vimtex_view_general_viewer = 'okular'
 " " supported backends and further explanation is provided in the documentation,
 " " see ":help vimtex-compiler".
 " " let g:vimtex_compiler_method = 'latexrun'
-let g:vimtex_compiler_method = 'pdflatex'
+" let g:vimtex_compiler_method = 'pdflatex'
 
 " " Most VimTeX mappings rely on localleader and this can be changed with the
 " " following line. The default is usually fine and is the symbol "\".
@@ -443,11 +449,11 @@ nnoremap <silent>    <Leader>0 <Cmd>BufferLast<CR>
 "-----------------------------------------------------------------------------
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+" nnoremap <leader>ff <cmd>Telescope find_files<cr>
 " nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+" nnoremap <leader>fb <cmd>Telescope buffers<cr>
+" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 "-----------------------------------------------------------------------------
 "
-lua require('competitest').setup() -- to use default configuration
+" lua require('competitest').setup() -- to use default configuration
