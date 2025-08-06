@@ -36,7 +36,7 @@ require('competitest').setup {
 		show_nu = true,
 		show_rnu = false,
 		mappings = {
-			run_again = "R",
+			run_again = "r",
 			run_all_again = "<C-r>",
 			kill = "K",
 			kill_all = "<C-k>",
@@ -45,7 +45,7 @@ require('competitest').setup {
 			view_stdout = { "o", "O" },
 			view_stderr = { "e", "E" },
 			toggle_diff = { "d", "D" },
-			close = { "q", "Q" },
+			close = { "q", "Q", "esc" },
 		},
 		viewer = {
 			width = 0.5,
@@ -86,7 +86,7 @@ require('competitest').setup {
 	compile_directory = ".",
 	compile_command = {
 		c = { exec = "gcc", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT)" } },
-		cpp = { exec = "g++", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT)" } },
+		cpp = { exec = "g++", args = { "-Wall", "-std=c++17", "$(FNAME)", "-o", "$(FNOEXT)" } },
 		rust = { exec = "rustc", args = { "$(FNAME)" } },
 		java = { exec = "javac", args = { "$(FNAME)" } },
 	},
@@ -113,7 +113,7 @@ require('competitest').setup {
 	companion_port = 27121,
 	receive_print_message = true,
 	start_receiving_persistently_on_setup = false,
-	template_file = false,
+      template_file = "~/.config/nvim/plug-config/template.$(FEXT)",
 	evaluate_template_modifiers = false,
 	date_format = "%c",
 	received_files_extension = "cpp",

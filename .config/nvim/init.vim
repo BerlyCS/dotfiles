@@ -183,8 +183,8 @@ nnoremap <A-3> :ToggleTerm direction=float<cr>
 inoremap <F5> <Esc>:!make %<<CR>
 nnoremap <F5> :!make %<<CR>
 
-inoremap <leader> <F5> <Esc>:CompetiTest run<<CR>
-nnoremap <leader> <F5> :CompetiTest run<<CR>
+" inoremap <leader><F5> <Esc>:CompetiTest run<CR>
+nnoremap <leader><F5> :CompetiTest run<CR>
   " autocmd FileType cpp nnoremap <buffer> <F5> :!make %<<CR>
 " autocmd FileType c nnoremap <buffer> <F5> :!make %<<CR>
 
@@ -457,3 +457,8 @@ nnoremap <silent>    <Leader>0 <Cmd>BufferLast<CR>
 "-----------------------------------------------------------------------------
 "
 " lua require('competitest').setup() -- to use default configuration
+hi CompetiTestRunning cterm=bold     gui=bold
+hi CompetiTestDone    cterm=none     gui=none
+hi CompetiTestCorrect ctermfg=green  guifg=#00ff00
+hi CompetiTestWarning ctermfg=yellow guifg=orange
+hi CompetiTestWrong   ctermfg=red    guifg=#ff0000
