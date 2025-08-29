@@ -18,13 +18,15 @@ while true; do
     fi
     if [ "$CAPACITY" -le 5 ]; then
       notify-send "Battery Critical" "$CAPACITY% remaining! Suspending in 60 seconds..." -u critical
-      sleep 59
+      sleep 30
+      notify-send "Battery Critical" "$CAPACITY% remaining! Connect the charger or else the systme will suspend in 30 seconds..." -u critical
+      sleep 29
       STATUS_NEW=$(cat /sys/class/power_supply/BAT1/status)
       CAPACITY_NEW=$(cat /sys/class/power_supply/BAT1/capacity)
       if [ "$STATUS_NEW" == "Discharging" ] && [ "$CAPACITY_NEW" -le 5 ]; then
-        notify-send "Suspending Now" "Battery critically low. System suspending..." -u critical
+        notify-send "Suspending Now" "Battery critically low. Suspending system..." -u critical
         sleep 1
-        systemctl suspend
+        systemctl suspend-then-hibernate
       fi
     else
       for LEVEL in "${LOW_PERCENTAGE[@]}"; do

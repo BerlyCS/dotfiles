@@ -1,6 +1,7 @@
-# output * bg #123456 solid_color
+output * bg #123456 solid_color
 # output * bg "~/Imágenes/beach.jpg" fill
-output * bg "~/Imágenes/mountain.jpg" fill
+# output * bg "~/Imágenes/mountain.jpg" fill
+# output * bg ~/.config/sway/bg.png fill
 
 workspace 1 output eDP-1
 
@@ -12,6 +13,9 @@ input "type:touchpad" {
   dwt off  
   accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
   pointer_accel 0.6 # set mouse sensitivity (between -1 and 1)
+  tap_button_map lrm
+  drag enabled
+  drag_lock disabled
 }
 
 input "type:Mouse" {
@@ -60,12 +64,12 @@ exec autotiling
 # for_window [app_id=".*"] split toggle
 # default_orientation vertical
 
-blur enable
-blur_xray disable
-blur_radius 2
-shadows disable
-corner_radius 5
-default_dim_inactive 0.1
+# blur enable
+# blur_xray disable
+# blur_radius 2
+# shadows disable
+# corner_radius 5
+# default_dim_inactive 0.1
 
 # Disable borders and titlebar
 default_border pixel 2
@@ -157,6 +161,10 @@ bindsym $mod+Ctrl+$right resize grow width 10px
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
+# Move focus to the next window in the current workspace
+bindsym Alt+Tab focus next
+bindsym Alt+Shift+Tab focus prev
+
 # Subir volumen
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
 # Subir volumen microfno
@@ -188,6 +196,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+Shift+XF86AudioLowerVolume exec playerctl previous
 
 bindsym XF86AudioPlay exec playerctl play-pause
+bindsym $mod+Shift+XF86AudioMute exec playerctl play-pause
 
 # -----------------------------
 
@@ -208,24 +217,25 @@ bindsym Ctrl+Print exec sh -c 'grim -g "$(slurp)" - | swappy -f -'
 #fullscreen
 bindsym $mod+f fullscreen
 
-bindsym $mod+p exec gtklock
+bindsym $mod+p exec ~/.config/sway/lock.sh
 
 # minimize
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+bindsym $mod+minus move scratchpad
+bindsym $mod+Shift+minus scratchpad show
 
 #specific apps config
 for_window [title="Chess"] floating enable
-for_window [app_id="kitty"] blur_xray enable
 
-gaps inner 3
-gaps outer 4
+gaps inner 2
+gaps outer 1
 
-layer_effects "waybar" {
-  blur enable;
-  blur_xray enable;
-}
+# layer_effects "waybar" {
+#   blur enable;
+#   blur_radius 3;
+#   blur_xray enable;
+# }
 
+# blur disable;
 # blur_radius 3;
 # shadows disable;
 # corner_radius 5; 
