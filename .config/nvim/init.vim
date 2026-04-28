@@ -55,7 +55,7 @@ Plug 'vim-airline/vim-airline' " Status bar
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs' " Autopairs
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'master'} " Syntax support
 " Plug 'sheerun/vim-polyglot'
  " Indent guides
 Plug 'Yggdroot/indentLine'
@@ -64,7 +64,7 @@ Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'mhinz/vim-startify'
 " Plug 'christoomey/vim-tmux-navigator'
 " Copilot
-" Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
 " React
 " Plug 'SirVer/ultisnips'
 " Plug 'mlaursen/vim-react-snippets'
@@ -94,15 +94,17 @@ endif
 " use it with gaip see :h
 " Plug 'junegunn/vim-easy-align'
 
-" Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
 " Competitive programming helper
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
+Plug 'ThePrimeagen/refactoring.nvim'
 call plug#end()
 
 so ~/.config/nvim/plug-config/treesitter.lua
+" so ~/.config/nvim/plug-config/tressitter-config.lua
 so ~/.config/nvim/plug-config/competitest.lua
 
 
@@ -295,6 +297,9 @@ let g:startify_session_dir = '~/.config/nvim/sessions'
 
 " ToggleTerm
 lua require("toggleterm").setup()
+
+" Refactoring tools
+lua require('refactoring').setup()
 
 "----------------------------------------------------------------------------
 " Coc
